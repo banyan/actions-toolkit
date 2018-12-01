@@ -1,5 +1,6 @@
 import path from 'path'
 import { logger } from '../src/logger'
+import { wrapLogger } from '../src/wrap-logger'
 import { Toolkit } from '../src'
 
 describe('Toolkit', () => {
@@ -88,7 +89,7 @@ describe('Toolkit', () => {
       logger.warn = jest.fn()
 
       // Toolkit, but number two. Ergo, twolkit. Open an issue if this isn't clear.
-      const twolkit = new Toolkit(logger)
+      const twolkit = new Toolkit(wrapLogger(logger))
 
       expect(twolkit.log.warn).toHaveBeenCalled()
       expect(twolkit.log.warn).toHaveBeenCalledWith(

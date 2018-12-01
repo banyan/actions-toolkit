@@ -7,8 +7,9 @@ import path from 'path'
 import Logger from 'bunyan'
 import Context from './context'
 import { logger } from './logger'
+import { LoggerWithTarget, wrapLogger } from './wrap-logger'
 
-export class Toolkit {
+class Toolkit {
   public context: Context
 
   /**
@@ -29,10 +30,10 @@ export class Toolkit {
   /**
    * A fancy logger
    */
-  public log: Logger
+  public log: LoggerWithTarget
 
-  constructor (customLogger?: Logger) {
-    this.log = customLogger || logger
+  constructor (customLogger?: LoggerWithTarget) {
+    this.log = wrapLogger(customLogger || logger)
 
     // Print a console warning for missing environment variables
     this.warnForMissingEnvVars()
@@ -173,3 +174,5 @@ export class Toolkit {
     }
   }
 }
+
+export { Logger, Toolkit }
