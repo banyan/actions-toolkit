@@ -1,6 +1,6 @@
 import path from 'path'
-import winston from 'winston'
 import { Toolkit } from '../src'
+import logger from '../src/logger'
 
 describe('Toolkit', () => {
   let toolkit: Toolkit
@@ -85,11 +85,10 @@ describe('Toolkit', () => {
   describe('#warnForMissingEnvVars', () => {
     it('logs the expected string', () => {
       delete process.env.HOME
-      const logger = winston.createLogger()
       logger.warn = jest.fn()
 
       // Toolkit, but number two. Ergo, twolkit. Open an issue if this isn't clear.
-      const twolkit = new Toolkit(logger)
+      const twolkit = new Toolkit()
 
       expect(twolkit.log.warn).toHaveBeenCalled()
       expect(twolkit.log.warn).toHaveBeenCalledWith(
