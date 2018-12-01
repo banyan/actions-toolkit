@@ -32,7 +32,7 @@ class Toolkit {
    */
   public log: LoggerWithTarget
 
-  constructor (customLogger?: LoggerWithTarget) {
+  constructor (customLogger?: Logger) {
     this.log = wrapLogger(customLogger || logger)
 
     // Print a console warning for missing environment variables
