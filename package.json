@@ -24,6 +24,8 @@
   "homepage": "https://github.com/JasonEtco/actions-toolkit#readme",
   "devDependencies": {
     "@octokit/webhooks": "^5.0.2",
+    "@types/bunyan": "^1.8.5",
+    "@types/bunyan-format": "^0.2.0",
     "@types/dotenv": "^4.0.3",
     "@types/execa": "^0.9.0",
     "@types/jest": "^23.3.9",
@@ -45,10 +47,11 @@
   },
   "dependencies": {
     "@octokit/rest": "^15.15.1",
+    "bunyan": "^1.8.12",
+    "bunyan-format": "^0.2.1",
     "execa": "^1.0.0",
     "js-yaml": "^3.12.0",
-    "minimist": "^1.2.0",
-    "winston": "^3.1.0"
+    "minimist": "^1.2.0"
   },
   "jest": {
     "setupFiles": [
