@@ -4,9 +4,9 @@ import fs from 'fs'
 import yaml from 'js-yaml'
 import minimist, { ParsedArgs } from 'minimist'
 import path from 'path'
-import { Logger } from 'winston'
+import Logger from 'bunyan'
 import Context from './context'
-import actionLogger from './logger'
+import { logger } from './logger'
 
 export class Toolkit {
   public context: Context
@@ -31,8 +31,8 @@ export class Toolkit {
    */
   public log: Logger
 
-  constructor (logger?: Logger) {
-    this.log = logger || actionLogger
+  constructor (customLogger?: Logger) {
+    this.log = customLogger || logger
 
     // Print a console warning for missing environment variables
     this.warnForMissingEnvVars()

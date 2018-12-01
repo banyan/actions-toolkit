@@ -1,5 +1,5 @@
 import path from 'path'
-import winston from 'winston'
+import { logger } from '../src/logger'
 import { Toolkit } from '../src'
 
 describe('Toolkit', () => {
@@ -85,7 +85,6 @@ describe('Toolkit', () => {
   describe('#warnForMissingEnvVars', () => {
     it('logs the expected string', () => {
       delete process.env.HOME
-      const logger = winston.createLogger()
       logger.warn = jest.fn()
 
       // Toolkit, but number two. Ergo, twolkit. Open an issue if this isn't clear.
