@@ -51,6 +51,6 @@ function toBunyanFormat (format: string) {
 
 export const logger = new Logger({
   level: toBunyanLogLevel(process.env.LOG_LEVEL || 'info'),
-  name: 'actions',
+  name: process.env.GITHUB_ACTION || 'actions',
   stream: new bunyanFormat({ outputMode: toBunyanFormat(process.env.LOG_FORMAT || 'short'), color: supportsColor.stdout })
 })
