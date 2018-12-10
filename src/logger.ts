@@ -16,9 +16,32 @@
  * ```
  */
 
-import Logger from 'bunyan'
+import bunyan from 'bunyan'
 import bunyanFormat from 'bunyan-format'
 import supportsColor from 'supports-color'
+import { WebhookEvent } from './context'
+
+const serializers: bunyan.StdSerializers = {
+  event: (event: WebhookEvent | any) => {
+    if (typeof event !== 'object' || !event.payload) {
+      return event
+    } else {
+      let name = event.name
+      if (event.payload && event.payload.action) {
+        name = `${name}.${event.payload.action}`
+      }
+
+      return {
+        event: name,
+        id: event.id,
+        repository: event.payload.repository && event.payload.repository.full_name
+      }
+    }
+  },
+  err: bunyan.stdSerializers.err,
+  req: bunyan.stdSerializers.req,
+  res: bunyan.stdSerializers.res,
+}
 
 function toBunyanLogLevel (level: string) {
   switch (level) {
@@ -49,8 +72,9 @@ function toBunyanFormat (format: string) {
   }
 }
 
-export const logger = new Logger({
+export const logger = bunyan.createLogger({
   level: toBunyanLogLevel(process.env.LOG_LEVEL || 'info'),
   name: process.env.GITHUB_ACTION || 'actions',
+  serializers,
   stream: new bunyanFormat({ outputMode: toBunyanFormat(process.env.LOG_FORMAT || 'short'), color: supportsColor.stdout })
 })

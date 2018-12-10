@@ -11,5 +11,6 @@ Object.assign(process.env, {
   GITHUB_TOKEN: '456def',
   GITHUB_WORKFLOW: 'my-workflow',
   GITHUB_WORKSPACE: path.join(__dirname, 'fixtures', 'workspaces', 'regular'),
-  HOME: '?'
+  HOME: '?',
+  LOG_LEVEL: 'debug'
 })
