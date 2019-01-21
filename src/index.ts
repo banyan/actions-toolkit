@@ -4,7 +4,7 @@ import fs from 'fs'
 import yaml from 'js-yaml'
 import minimist, { ParsedArgs } from 'minimist'
 import path from 'path'
-import yurnalist, { Yurnalist } from 'yurnalist'
+import { createReporter, Reporter } from 'yurnalist'
 import Context from './context'
 
 export class Toolkit {
@@ -31,12 +31,12 @@ export class Toolkit {
   public arguments: ParsedArgs
 
   /**
-   * A logger/reporter - an instance of Yurnalist
+   * A logger/reporter - an instance of yurnalist
    */
-  public log: Yurnalist
+  public log: Reporter
 
   constructor () {
-    this.log = yurnalist
+    this.log = createReporter()
 
     // Print a console warning for missing environment variables
     this.warnForMissingEnvVars()

@@ -1,28 +1,31 @@
 declare module 'yurnalist' {
   type Tree = {
     name: string
-    children?: Trees
-    hint?: ?string
+    children?: Tree[]
+    hint?: string
     hidden?: boolean
-    color?: ?string
+    color?: string
   }
 
-  type Trees = Tree[]
-
-  type Package = {
-    name: string
-    version: string
+  type ReporterOptions = {
+    verbose?: boolean,
+    stdout?: Stdout,
+    stderr?: Stdout,
+    stdin?: Stdin,
+    emoji?: boolean,
+    noProgress?: boolean,
+    silent?: boolean,
+    nonInteractive?: boolean,
+    peekMemoryCounter?: boolean
   }
 
-  type Row = string[]
-
-  export class Yurnalist {
+  export interface Reporter {
     close ()
-    table (head: string[], body: Row[])
+    table (head: string[], body: string[])
     step (current: number, total: number, msg: string, emoji?: string)
     inspect (value: any)
     list (key: string, items: string[], hints?: object)
-    header (command: string, pkg: Package)
+    header (command: string, pkg: { name: string, version: string })
     footer (showPeakMemory?: boolean)
     log (msg: string, opts: { force?: boolean })
     success (msg: string)
@@ -34,5 +37,5 @@ declare module 'yurnalist' {
     tree (key: string, trees: Trees, opts: { force?: boolean })
   }
 
-  export default new Yurnalist()
+  export function createReporter(options?: ReporterOptions): Reporter
 }
